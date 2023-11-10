@@ -89,43 +89,10 @@ function Inventario() {
     },
   ]
 
-  const items = searchTerm
-    ? product.map((product) => {
+  const items = product.map((product) => {
         return {
           id: product.id,
           nombre: product.nombre.toLowerCase().includes(searchTerm.toLowerCase()),
-          descripcion: product.descripcion,
-          precioPublico: `$${product.precioPublico} MXN`,
-          stock: product.stock,
-          Opciones: (
-            <>
-              <div>
-                <CButton color="light" onClick={() => openModalEdit(product.id)}>
-                  <CIcon
-                    icon={cilPlus}
-                    className="text-success"
-                    title="Editar"
-                    style={{ cursor: 'pointer', marginRight: '10px' }}
-                  />
-                </CButton>
-                <CButton color="light" onClick={() => deleteProduct(product.id)}>
-                  <CIcon
-                    icon={cilTrash}
-                    className="text-danger"
-                    title="Eliminar"
-                    style={{ cursor: 'pointer' }}
-                  />
-                </CButton>
-              </div>
-            </>
-          ),
-          _cellProps: { id: { scope: 'row' } },
-        }
-      })
-    : product.map((product) => {
-        return {
-          id: product.id,
-          nombre: product.nombre,
           descripcion: product.descripcion,
           precioPublico: `$${product.precioPublico} MXN`,
           stock: product.stock,
