@@ -17,7 +17,6 @@ function Inventario() {
   const modalUpdate = useSelector((state) => state.modalUpdate)
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
-  const [searchTerm, setSearchTerm] = useState('')
 
   const openModalEdit = (productId) => {
     const productRef = doc(db, 'productos', productId)
@@ -92,7 +91,7 @@ function Inventario() {
   const items = product.map((product) => {
         return {
           id: product.id,
-          nombre: product.nombre.toLowerCase().includes(searchTerm.toLowerCase()),
+          nombre: product.nombre,
           descripcion: product.descripcion,
           precioPublico: `$${product.precioPublico} MXN`,
           stock: product.stock,
@@ -143,11 +142,6 @@ function Inventario() {
 
   const totalPages = Math.ceil(items.length / itemsPerPage)
 
-  const handleSearchChange = (event) => {
-    setCurrentPage(1)
-    setSearchTerm(event.target.value)
-  }
-
   if (modal) {
     return (
       <>
@@ -171,12 +165,6 @@ function Inventario() {
         Agregar Producto Nuevo
       </CButton>
       <div className="mb-3" style={{ marginTop: '20px' }}>
-        <input
-          type="text"
-          placeholder="Buscar producto..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
         <CTable columns={columns} items={itemsToShow} />
         <CPagination aria-label="Page navigation example">
           <CPaginationItem
